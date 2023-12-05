@@ -1,4 +1,6 @@
 from datetime import datetime
+import requests
+import logging
 
 def convert_to_unix_timestamp(date_str):
     date_object = datetime.strptime(date_str, "%d-%m-%Y")
@@ -13,6 +15,8 @@ end_timestamp = convert_to_unix_timestamp(end_date_str)
 
 print(f"Start timestamp: {start_timestamp}")
 print(f"End timestamp: {end_timestamp}")
+# Start timestamp: 1701369000
+# End timestamp: 1701714600
 
 
 # ====================================================================================================================

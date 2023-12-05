@@ -7,10 +7,7 @@ import matplotlib.pyplot as plt
 from db_connect import db
 from datetime import datetime
 from colorama import Fore, Style
-from dotenv import load_dotenv
-# Load environment variables from .env file
-load_dotenv()
-# Access environment variables
+
 api_key = os.getenv('API_KEY')
 
 # Set up logging
@@ -52,26 +49,31 @@ def visualize_data(average_temperature, average_humidity, city):
         plt.xlabel('Metrics')
         plt.ylabel('Average Values')
         plt.title(f'Average Temperature and Humidity for {city}')
-        plt.savefig(f'weather_chart_{city}.png')  # Save the figure to a file
+        plt.savefig(f'weather_chart_{city}_today.png')  # Save the figure to a file
         current_directory = os.getcwd()
 
         print(f"Average Temperature and Humidity graph  for {city}"+
-            f" got save with in name 'weather_chart.png'"+ 
-            f" at location {current_directory}/weather_chart_{city}.png")
+            f" got saved with in name 'weather_chart_{city}_today.png'"+ 
+            f" at location {current_directory}/weather_chart_{city}_today.png")
     except Exception as e:
         logging.error(f"Error visualizing weather data: {e}")
 
 def store_data_mongodb(city, weather_data, avg_weather_collection=False):
     try:
         weather_collection = db['avg_weather_collection']
-        date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        avg_weather_data = {
-            'city': city.lower(),
-            'weather_data_6': weather_data,
-            'date_time' : datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
-        result = weather_collection.insert_one(avg_weather_data)
-        print(f"Data inserted with ObjectId: {result.inserted_id} in database")
+        filter_criteria = {'city': city.lower()}
+        update_data = {
+                    '$set': {
+                        'weather_data_6': weather_data,
+                        'date_time': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                }
+        result = weather_collection.update_one(filter_criteria, update_data, upsert=True)
+        if result.upserted_id is not None:
+            print(f"Data inserted with ObjectId: {result.upserted_id} in database")
+        else:
+            print(f"Data updated for city: {city.lower()}")
+
 
     except Exception as e:
             logging.error(f"Error storing weather data in MongoDB: {e}")
@@ -89,6 +91,7 @@ def get_data_mongodb(city):
 def avg_weather_data():
 
     city = input("Enter the city: ")
+    city=city.strip()
     weather_data = fetch_avg_weather_data(city)
     if weather_data['cod'] != '200':
         print("Error fetching weather data. Please check the city name and try again.")
@@ -119,12 +122,12 @@ def clear_screen():
 def print_menu():
     print(f"{Fore.BLUE}Press 1){Style.RESET_ALL} for average temperature and humidity of a desired city")
     print(f"{Fore.BLUE}Press 2){Style.RESET_ALL} for weather data from multiple cities")
-    print(f"{Fore.BLUE}Press 3){Style.RESET_ALL} for historical weather data of a desired city")
     print(f"{Fore.RED}Enter 'q' to quit{Style.RESET_ALL}")
 
 
 if __name__ == "__main__":
     clear_screen()
+    print(api_key)
 
     while True:
         print_menu()
@@ -142,10 +145,10 @@ if __name__ == "__main__":
                 cities_data.append(city)
             print(f"Selected cities: {', '.join(cities_data)}")
 
-        elif user_choice == '3':
-            print("Historical weather data")
-            print("\nList of cities we have in our database and their temperature measured date")
-            print("Cities      From Date")
+        # elif user_choice == '3':
+        #     print("Historical weather data")
+        #     print("\nList of cities we have in our database and their temperature measured date")
+        #     print("Cities      From Date")
         elif user_choice.lower() == 'q':
             print("Exiting...")
             break
