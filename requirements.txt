@@ -1,6 +1,12 @@
+aiodns==3.1.1
+aiohttp==3.9.1
+aiosignal==1.3.1
 anyio==4.1.0
+async-timeout==4.0.3
+attrs==23.1.0
 branca==0.7.0
 certifi==2023.11.17
+cffi==1.16.0
 charset-normalizer==3.3.2
 colorama==0.4.6
 contourpy==1.1.1
@@ -9,6 +15,7 @@ dnspython==2.4.2
 exceptiongroup==1.2.0
 folium==0.15.0
 fonttools==4.46.0
+frozenlist==1.4.0
 geographiclib==2.0
 geopy==2.4.1
 h11==0.14.0
@@ -21,10 +28,13 @@ Jinja2==3.1.2
 kiwisolver==1.4.5
 MarkupSafe==2.1.3
 matplotlib==3.7.4
+multidict==6.0.4
 numpy==1.24.4
 packaging==23.2
 pandas==2.0.3
 Pillow==10.1.0
+pycares==4.4.0
+pycparser==2.21
 pymongo==4.6.1
 pyparsing==3.1.1
 python-dateutil==2.8.2
@@ -36,4 +46,5 @@ six==1.16.0
 sniffio==1.3.0
 tzdata==2023.3
 urllib3==2.1.0
+yarl==1.9.3
 zipp==3.17.0

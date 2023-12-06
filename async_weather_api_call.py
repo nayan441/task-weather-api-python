@@ -52,12 +52,12 @@ def visualize_data(average_temperature, average_humidity, city):
         for i, v in enumerate(values):
             plt.text(i, v + 0.1, str(round(v, 2)), color='black', ha='center', va='bottom')
 
-        plt.savefig(f'weather_chart_{city}.png')  
+        plt.savefig(f'async_weather_chart_{city}_today.png')  
         current_directory = os.getcwd()
 
         print(f"Average Temperature and Humidity graph for {city}" +
-              f" got saved with the name 'weather_chart_{city}.png'" +
-              f" at location {current_directory}/weather_chart_{city}.png")
+              f" got saved with the name 'async_weather_chart_{city}_today.png'" +
+              f" at location {current_directory}/async_weather_chart_{city}_today.png")
     except Exception as e:
         logging.error(f"Error visualizing weather data: {e}")
 
