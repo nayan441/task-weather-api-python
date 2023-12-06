@@ -17,15 +17,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 def fetch_avg_weather_data(city):
     avg=6
-    try:
-        url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&cnt={avg}&appid={api_key}'
-        response = requests.get(url)
-        response.raise_for_status()
-        data = response.json()
-        return data
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Error fetching weather data for {city}: {e}")
-        return None
+    url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&cnt={avg}&appid={api_key}'
+    response = requests.get(url)
+    data = response.json()
+    return data
+  
 
 def analyze_data(data):
     try:
@@ -93,6 +89,8 @@ def avg_weather_data():
     city = input("Enter the city: ")
     city=city.strip()
     weather_data = fetch_avg_weather_data(city)
+    print("======================================================================================================")
+    print(weather_data)
     if weather_data['cod'] != '200':
         print("Error fetching weather data. Please check the city name and try again.")
         return

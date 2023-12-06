@@ -21,17 +21,24 @@ Before running the script, ensure you have the following:
 
    ```bash
    git clone https://github.com/yourusername/Weather-Data-Dashboard.git
+
 2. Create virtual environment and activate:
 
    ```bash
    virtualenv venv
    source venv/bin/activate
+
 3. Install required packages:
 
    ```bash
    pip install -r requirements.txt
 
-4. Run script:
+4. Run script(For sync):
 
    ```bash
    python3 weather_api_call.py
+
+5. Run script (For async):
+
+   ```bash
+   python3 async_weather_api_call.py
