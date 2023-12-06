@@ -1,6 +1,8 @@
 import os
+import asyncio
 from colorama import Fore, Style
 from weather_api_call import avg_weather_data
+from async_weather_api_call import async_avg_weather_data
 import time
 api_key = os.getenv('API_KEY')
 
@@ -29,7 +31,7 @@ if __name__ == "__main__":
             end = time.time()
             total_time =  (end-start) * 1000
             print(f"Total time taken: {total_time:.2f} milliseconds")
-            
+
         elif user_choice == '2':
             print("Weather data from multiple cities")
             count = int(input("How many cities' data do you want to retrieve: "))
@@ -38,6 +40,13 @@ if __name__ == "__main__":
                 city = input(f"Enter city {i+1}: ")
                 cities_data.append(city)
             print(f"Selected cities: {', '.join(cities_data)}")
+            print(f"Average temperature and humidity of  {', '.join(cities_data)} today")
+            start = time.time()
+            asyncio.run(async_avg_weather_data(cities_data))
+
+            end = time.time()
+            total_time =  (end-start) * 1000
+            print(f"Total time taken: {total_time:.2f} milliseconds")
 
         # elif user_choice == '3':
         #     print("Historical weather data")

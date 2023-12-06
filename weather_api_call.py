@@ -24,6 +24,8 @@ def fetch_avg_weather_data(city):
   
 
 def analyze_data(data):
+    print(analyze_data)
+    print(data)
     try:
         avg_hum = 0
         avg_temp = 0
