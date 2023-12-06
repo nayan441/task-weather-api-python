@@ -45,7 +45,11 @@ def visualize_data(average_temperature, average_humidity, city):
         plt.xlabel('Metrics')
         plt.ylabel('Average Values')
         plt.title(f'Average Temperature and Humidity for {city}')
-        plt.savefig(f'weather_chart_{city}_today.png')  # Save the figure to a file
+        # Add values on top of the bars
+        for i, v in enumerate(values):
+            plt.text(i, v + 0.1, str(round(v, 2)), color='black', ha='center', va='bottom')
+
+        plt.savefig(f'weather_chart_{city}_today.png')  
         current_directory = os.getcwd()
 
         print(f"Average Temperature and Humidity graph  for {city}"+
@@ -84,13 +88,9 @@ def get_data_mongodb(city):
         logging.error(f"Error retrieving weather data from MongoDB: {e}")
         return None
 
-def avg_weather_data():
-
-    city = input("Enter the city: ")
+def avg_weather_data(city):
     city=city.strip()
     weather_data = fetch_avg_weather_data(city)
-    print("======================================================================================================")
-    print(weather_data)
     if weather_data['cod'] != '200':
         print("Error fetching weather data. Please check the city name and try again.")
         return
@@ -105,53 +105,3 @@ def avg_weather_data():
     store_data_mongodb(city, relevent_data_list,True)
     visualize_data_temp, visualize_data_humid = analyze_data(get_data_mongodb(city))
     visualize_data(visualize_data_temp, visualize_data_humid, city)
-
-
-
-
-
-
-
-def clear_screen():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
-def print_menu():
-    print(f"{Fore.BLUE}Press 1){Style.RESET_ALL} for average temperature and humidity of a desired city")
-    print(f"{Fore.BLUE}Press 2){Style.RESET_ALL} for weather data from multiple cities")
-    print(f"{Fore.RED}Enter 'q' to quit{Style.RESET_ALL}")
-
-
-if __name__ == "__main__":
-    clear_screen()
-    print(api_key)
-
-    while True:
-        print_menu()
-        user_choice = input("\nEnter your choice: ")
-
-        if user_choice == '1':
-            print("Average temperature and humidity of your city today")
-            avg_weather_data()
-        elif user_choice == '2':
-            print("Weather data from multiple cities")
-            count = int(input("How many cities' data do you want to retrieve: "))
-            cities_data = []
-            for i in range(count):
-                city = input(f"Enter city {i+1}: ")
-                cities_data.append(city)
-            print(f"Selected cities: {', '.join(cities_data)}")
-
-        # elif user_choice == '3':
-        #     print("Historical weather data")
-        #     print("\nList of cities we have in our database and their temperature measured date")
-        #     print("Cities      From Date")
-        elif user_choice.lower() == 'q':
-            print("Exiting...")
-            break
-        else:
-            print(f"{Fore.RED}Please enter a valid choice{Style.RESET_ALL}")
-
-        input("\nPress Enter to continue...")
-        clear_screen()

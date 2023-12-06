@@ -36,9 +36,5 @@ Before running the script, ensure you have the following:
 4. Run script(For sync):
 
    ```bash
-   python3 weather_api_call.py
+   python3 main.py
 
-5. Run script (For async):
-
-   ```bash
-   python3 async_weather_api_call.py
