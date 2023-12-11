@@ -38,3 +38,14 @@ Before running the script, ensure you have the following:
    ```bash
    python3 main.py
 
+5. Run test cases(For sync):
+
+   ```bash
+   pytest test_sync_weather_api.py
+
+5. Run test cases(For async):
+
+   ```bash
+   pytest test_async_weather_api.py
+
+

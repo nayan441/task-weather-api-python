@@ -5,6 +5,9 @@ from weather_api_call import avg_weather_data
 from async_weather_api_call import async_avg_weather_data
 import time
 import logging
+from dotenv import load_dotenv
+load_dotenv()
+
 api_key = os.getenv('API_KEY')
 
 logging.basicConfig(

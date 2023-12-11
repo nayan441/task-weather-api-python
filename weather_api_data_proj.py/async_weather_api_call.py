@@ -8,7 +8,9 @@ from db_connect import db
 from datetime import datetime
 import aiohttp
 import asyncio
+from dotenv import load_dotenv
 
+load_dotenv()
 # Access environment variables
 api_key = os.getenv('API_KEY')
 
@@ -69,7 +71,7 @@ async def visualize_data(average_temperature, average_humidity, city):
             os.path.join(
                 save_folder,
                 f'async_weather_chart_{city}_today.png'))
-        plt.close(fig)  # Close the figure to release resources
+        plt.close(fig) 
 
         print(f"Average Temperature and Humidity graph for {city}" +
               f" got saved with the name 'async_weather_chart_{city}_today.png'" +

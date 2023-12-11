@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 from db_connect import db
 from datetime import datetime
 from colorama import Fore, Style
+from dotenv import load_dotenv
 
+load_dotenv()
 api_key = os.getenv('API_KEY')
 
 
