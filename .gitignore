@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+env/
+env_bak/
+
+# Local development settings
+*.sqlite3
+*.log
+
+# IDE settings
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+
+# Python cache files
+__pycache__/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Custom ignore for specific files
+my_secret_file.txt
+
+# Ignore any local .env files
+.env*
