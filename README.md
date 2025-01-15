@@ -1,6 +1,6 @@
 # Weather Data Dashboard
 
-This Python script provides functionality to fetch and visualize weather data. It uses the OpenWeatherMap API to retrieve average weather data for a specified city, store it in MongoDB, and visualize the results.
+This Python script provides functionality to fetch and visualize weather data. It uses the OpenWeatherMap API to retrieve average weather data for a specified city, store it in MongoDB, and visualize the results. 
 
 ## Features
 
